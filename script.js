@@ -1,30 +1,36 @@
-function threeSumClosest(nums, target) {
-    if (nums.length < 3) {
-        return null; // Not enough elements to form a triplet
+function threeSum(S, target) {
+  // Sort the array in ascending order
+  S.sort((a, b) => a - b);
+
+  let closestSum = Infinity;
+  let closestDiff = Infinity;
+
+  for (let i = 0; i < S.length - 2; i++) {
+    let left = i + 1;
+    let right = S.length - 1;
+
+    while (left < right) {
+      const currentSum = S[i] + S[left] + S[right];
+      const currentDiff = Math.abs(currentSum - target);
+
+      if (currentDiff < closestDiff) {
+        closestDiff = currentDiff;
+        closestSum = currentSum;
+      }
+
+      if (currentSum < target) {
+        left++;
+      } else {
+        right--;
+      }
     }
+  }
 
-    nums.sort((a, b) => a - b); // Sort the array in ascending order
-    let closestSum = Infinity;
-
-    for (let i = 0; i < nums.length - 2; i++) {
-        let left = i + 1;
-        let right = nums.length - 1;
-
-        while (left < right) {
-            const currentSum = nums[i] + nums[left] + nums[right];
-
-            if (Math.abs(currentSum - target) < Math.abs(closestSum - target)) {
-                closestSum = currentSum;
-            }
-
-            if (currentSum < target) {
-                left++;
-            } else {
-                right--;
-            }
-        }
-    }
-
-    return closestSum;
+  return closestSum;
 }
 
+// Example usage:
+const S = [-1, 2, 1, -4];
+const target = 1;
+const closestSum = threeSum(S, target);
+console.log(closestSum); // Output: 2
