@@ -1,36 +1,31 @@
-function threeSum(S, target) {
-  // Sort the array in ascending order
-  S.sort((a, b) => a - b);
+function threeSum(nums, target) {
+// write your code here
+	nums.sort((a, b) => a - b);
 
-  let closestSum = Infinity;
-  let closestDiff = Infinity;
+    let closestSum = nums[0] + nums[1] + nums[2];
 
-  for (let i = 0; i < S.length - 2; i++) {
-    let left = i + 1;
-    let right = S.length - 1;
+    for (let i = 0; i < nums.length - 2; i++) {
+        let left = i + 1;
+        let right = nums.length - 1;
 
-    while (left < right) {
-      const currentSum = S[i] + S[left] + S[right];
-      const currentDiff = Math.abs(currentSum - target);
+        while (left < right) {
+            const currentSum = nums[i] + nums[left] + nums[right];
 
-      if (currentDiff < closestDiff) {
-        closestDiff = currentDiff;
-        closestSum = currentSum;
-      }
+            // Update the closest sum if the current sum is closer to the target.
+            if (Math.abs(currentSum - target) < Math.abs(closestSum - target)) {
+                closestSum = currentSum;
+            }
 
-      if (currentSum < target) {
-        left++;
-      } else {
-        right--;
-      }
+            if (currentSum < target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
     }
-  }
 
-  return closestSum;
+    return closestSum;
+  
 }
 
-// Example usage:
-const S = [-1, 2, 1, -4];
-const target = 1;
-const closestSum = threeSum(S, target);
-console.log(closestSum); // Output: 2
+module.exports = threeSum;
